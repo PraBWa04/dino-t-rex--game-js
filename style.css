@@ -39,3 +39,21 @@
     bottom: 0;
   }
 }
+
+.button-dark-mode {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  margin: 30px 0px 0px 428px;
+}
+
+.button-1 {
+  background-color: black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: blueviolet;
+  font-size: 25px;
+  justify-content: center;
+  cursor: pointer;
+  padding: 10px 15px;
+}
