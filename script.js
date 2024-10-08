@@ -1,6 +1,6 @@
 const dino = document.getElementById("dino");
 let isJumping = false;
-let cactusSpeed = 1.8; // Швидкість руху кактусів, використовується для зміни інтервалів
+let cactusSpeed = 1.8;
 let difficultyIncreaseInterval;
 
 document.addEventListener("keydown", function (event) {
@@ -39,7 +39,7 @@ function createCactus() {
     );
 
     if (cactusLeft > 0) {
-      cactus.style.left = cactusLeft - cactusSpeed * 10 + "px"; // Використовуємо cactusSpeed
+      cactus.style.left = cactusLeft - cactusSpeed * 10 + "px";
     } else {
       clearInterval(moveCactus);
       cactus.remove();
@@ -75,12 +75,11 @@ function startCreatingCacti() {
   setTimeout(() => {
     createCactus();
     startCreatingCacti();
-  }, 500 * cactusSpeed); // Чим менше cactusSpeed, тим частіше створюються кактуси
+  }, 500 * cactusSpeed);
 }
 
 startCreatingCacti();
 
-// Запускаємо періодичне збільшення складності
 difficultyIncreaseInterval = setInterval(function () {
   increaseDifficulty();
 }, 5000);
