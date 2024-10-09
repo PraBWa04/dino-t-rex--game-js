@@ -1,9 +1,16 @@
 const dino = document.getElementById("dino");
+const gameOverMessage = document.getElementById("game-over-message");
 let isJumping = false;
 let cactusSpeed = 1.8;
 let difficultyIncreaseInterval;
+let gameOver = false;
 
+// Додаємо обробник подій для натискання Enter
 document.addEventListener("keydown", function (event) {
+  if (gameOver && event.code === "Enter") {
+    restartGame(); // Рестарт гри при натисканні Enter
+  }
+
   if (
     (event.code === "Space" ||
       event.code === "ArrowUp" ||
@@ -11,7 +18,8 @@ document.addEventListener("keydown", function (event) {
       event.code === "ArrowRight" ||
       event.code === "ArrowDown" ||
       event.code === "ArrowLeft") &&
-    !isJumping
+    !isJumping &&
+    !gameOver
   ) {
     jump();
   }
@@ -28,12 +36,19 @@ function jump() {
 }
 
 function createCactus() {
+  if (gameOver) return;
+
   const cactus = document.createElement("div");
   cactus.classList.add("cactus");
   document.querySelector(".game").appendChild(cactus);
   cactus.style.left = "600px";
 
   let moveCactus = setInterval(() => {
+    if (gameOver) {
+      clearInterval(moveCactus);
+      return;
+    }
+
     let cactusLeft = parseInt(
       window.getComputedStyle(cactus).getPropertyValue("left")
     );
@@ -60,9 +75,28 @@ function checkCollision(cactus, moveCactus) {
   ) {
     clearInterval(moveCactus);
     clearInterval(difficultyIncreaseInterval);
-    alert("GAME OVER!");
-    document.querySelectorAll(".cactus").forEach((c) => c.remove());
+    gameOver = true;
+    showGameOverMessage();
+
+    document.querySelectorAll(".cactus").forEach((c) => {
+      if (c !== cactus) c.remove();
+    });
   }
+}
+
+function showGameOverMessage() {
+  gameOverMessage.style.display = "block";
+}
+
+function restartGame() {
+  gameOver = false;
+  gameOverMessage.style.display = "none";
+  cactusSpeed = 1.8;
+
+  document.querySelectorAll(".cactus").forEach((c) => c.remove());
+
+  startCreatingCacti();
+  difficultyIncreaseInterval = setInterval(increaseDifficulty, 5000);
 }
 
 function increaseDifficulty() {
@@ -72,10 +106,12 @@ function increaseDifficulty() {
 }
 
 function startCreatingCacti() {
-  setTimeout(() => {
-    createCactus();
-    startCreatingCacti();
-  }, 500 * cactusSpeed);
+  if (!gameOver) {
+    setTimeout(() => {
+      createCactus();
+      startCreatingCacti();
+    }, 500 * cactusSpeed);
+  }
 }
 
 startCreatingCacti();
@@ -83,3 +119,9 @@ startCreatingCacti();
 difficultyIncreaseInterval = setInterval(function () {
   increaseDifficulty();
 }, 5000);
+
+const darkModeButton = document.querySelector(".button-1");
+
+darkModeButton.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+});
