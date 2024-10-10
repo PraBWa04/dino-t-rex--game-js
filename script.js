@@ -4,17 +4,21 @@ let isJumping = false;
 let cactusSpeed = 1.8;
 let difficultyIncreaseInterval;
 let gameOver = false;
+let isDarkMode = false;
 
-// Додаємо обробник подій для натискання Enter
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+  isDarkMode = !isDarkMode;
+}
+
 document.addEventListener("keydown", function (event) {
   if (gameOver && event.code === "Enter") {
-    restartGame(); // Рестарт гри при натисканні Enter
+    restartGame();
   }
 
   if (
     (event.code === "Space" ||
       event.code === "ArrowUp" ||
-      event.code === "Enter" ||
       event.code === "ArrowRight" ||
       event.code === "ArrowDown" ||
       event.code === "ArrowLeft") &&
@@ -95,6 +99,12 @@ function restartGame() {
 
   document.querySelectorAll(".cactus").forEach((c) => c.remove());
 
+  if (isDarkMode) {
+    document.body.classList.add("dark-mode");
+  } else {
+    document.body.classList.remove("dark-mode");
+  }
+
   startCreatingCacti();
   difficultyIncreaseInterval = setInterval(increaseDifficulty, 5000);
 }
@@ -115,13 +125,9 @@ function startCreatingCacti() {
 }
 
 startCreatingCacti();
-
 difficultyIncreaseInterval = setInterval(function () {
   increaseDifficulty();
 }, 5000);
 
 const darkModeButton = document.querySelector(".button-1");
-
-darkModeButton.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-});
+darkModeButton.addEventListener("click", toggleDarkMode);

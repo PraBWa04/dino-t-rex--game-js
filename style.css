@@ -69,3 +69,17 @@
   display: none;
   text-align: center;
 }
+
+.dark-mode {
+  background-color: #333;
+  color: #f1f1f1;
+}
+
+.dark-mode .button-1 {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+.dark-mode #game-over-message {
+  color: yellow;
+}
