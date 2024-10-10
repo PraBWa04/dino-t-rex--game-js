@@ -1,10 +1,12 @@
 const dino = document.getElementById("dino");
 const gameOverMessage = document.getElementById("game-over-message");
+const scoreDisplay = document.getElementById("score");
 let isJumping = false;
 let cactusSpeed = 1.8;
 let difficultyIncreaseInterval;
 let gameOver = false;
 let isDarkMode = false;
+let score = 0;
 
 function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
@@ -62,6 +64,7 @@ function createCactus() {
     } else {
       clearInterval(moveCactus);
       cactus.remove();
+      updateScore();
     }
 
     checkCollision(cactus, moveCactus);
@@ -96,6 +99,8 @@ function restartGame() {
   gameOver = false;
   gameOverMessage.style.display = "none";
   cactusSpeed = 1.8;
+  score = 0;
+  scoreDisplay.innerText = "Score: 0";
 
   document.querySelectorAll(".cactus").forEach((c) => c.remove());
 
@@ -124,6 +129,11 @@ function startCreatingCacti() {
   }
 }
 
+function updateScore() {
+  score += 1;
+  scoreDisplay.innerText = "Score: " + score;
+}
+
 startCreatingCacti();
 difficultyIncreaseInterval = setInterval(function () {
   increaseDifficulty();
@@ -131,3 +141,16 @@ difficultyIncreaseInterval = setInterval(function () {
 
 const darkModeButton = document.querySelector(".button-1");
 darkModeButton.addEventListener("click", toggleDarkMode);
+
+function updateScore() {
+  score += 1;
+  scoreDisplay.innerText = "Score: " + score;
+
+  if (score % 10 === 0) {
+    scoreDisplay.classList.add("score-bonus");
+
+    setTimeout(() => {
+      scoreDisplay.classList.remove("score-bonus");
+    }, 500);
+  }
+}
