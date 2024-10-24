@@ -1,5 +1,7 @@
 # Dino T-Rex Game
 
+Simple game to avoid obstacles!
+
 ## Description
 
 This is a simple Dino T-Rex runner game where the player controls the dino to jump over cacti and earn points. The game becomes more difficult over time, and there is an option to toggle dark mode for a different visual experience.
