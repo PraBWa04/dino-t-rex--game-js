@@ -25,11 +25,6 @@ This is a simple Dino T-Rex runner game where the player controls the dino to ju
 - Avoid the cacti to keep running and increase your score.
 - When the game is over, press `Enter` to restart the game.
 
-## How to Run Locally
+## Live Demo
 
-To run this game on your local machine, follow these steps:
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/YourUsername/dino-t-rex--game-js.git
-   ```
+You can check out the live version of the game here: [Dino T-Rex Game](https://prabwa04.github.io/dino-t-rex--game-js/)
