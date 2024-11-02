@@ -16,7 +16,7 @@ body {
   width: 50px;
   height: 50px;
   background: url(images/t-rex-removebg-preview.png) no-repeat;
-  background-size: contain;
+  background-size: cover;
   position: absolute;
   bottom: 0;
 }
@@ -25,7 +25,7 @@ body {
   width: 20px;
   height: 40px;
   background: url(images/cactus-removebg-preview.png) no-repeat;
-  background-size: contain;
+  background-size: cover;
   position: absolute;
   bottom: 0;
 }
@@ -44,20 +44,6 @@ body {
   }
 }
 
-.button-dark-mode {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.button-1 {
-  background-color: black;
-  color: blueviolet;
-  font-size: 25px;
-  padding: 10px 15px;
-  cursor: pointer;
-}
-
 #game-over-message {
   position: absolute;
   top: 50%;
@@ -74,7 +60,17 @@ body {
   color: #f1f1f1;
 }
 
-.dark-mode .button-1 {
+.dark-mode-toggle {
+  display: block;
+  margin: 30px auto;
+  background-color: black;
+  color: blueviolet;
+  font-size: 25px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.dark-mode .dark-mode-toggle {
   background-color: #f1f1f1;
   color: #333;
 }

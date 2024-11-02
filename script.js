@@ -9,10 +9,10 @@ let gameOver = false;
 let isDarkMode = false;
 let score = 0;
 
-function toggleDarkMode() {
+darkModeButton.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
   isDarkMode = !isDarkMode;
-}
+});
 
 function jump() {
   if (isJumping || gameOver) return;
@@ -21,7 +21,7 @@ function jump() {
   setTimeout(() => {
     dino.classList.remove("jump");
     isJumping = false;
-  }, 340);
+  }, 300);
 }
 
 function createCactus() {
@@ -34,15 +34,15 @@ function createCactus() {
   const moveCactus = setInterval(() => {
     if (gameOver) return clearInterval(moveCactus);
 
-    const cactusLeft = parseInt(cactus.style.left);
-    if (cactusLeft <= 0) {
+    cactus.style.left = `${parseInt(cactus.style.left) - cactusSpeed * 10}px`;
+
+    if (parseInt(cactus.style.left) <= 0) {
       cactus.remove();
       updateScore();
       clearInterval(moveCactus);
     } else {
-      cactus.style.left = `${cactusLeft - cactusSpeed * 10}px`;
+      checkCollision(cactus, moveCactus);
     }
-    checkCollision(cactus, moveCactus);
   }, 20);
 }
 
@@ -88,7 +88,7 @@ function startCreatingCacti() {
 
 function updateScore() {
   score++;
-  scoreDisplay.innerText = "Score: " + score;
+  scoreDisplay.innerText = `Score: ${score}`;
   if (score % 10 === 0) {
     scoreDisplay.classList.add("score-bonus");
     setTimeout(() => scoreDisplay.classList.remove("score-bonus"), 500);
@@ -101,11 +101,10 @@ document.addEventListener("keydown", (event) => {
     ["Space", "ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"].includes(
       event.code
     )
-  )
+  ) {
     jump();
+  }
 });
-
-darkModeButton.addEventListener("click", toggleDarkMode);
 
 startCreatingCacti();
 setInterval(increaseDifficulty, 5000);
